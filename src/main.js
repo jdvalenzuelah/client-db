@@ -29,6 +29,8 @@ import {
   QTd,
 } from 'quasar'
 
+import router from './router'
+
 Vue.use(Quasar, {
   config: {},
   components: {
@@ -64,5 +66,6 @@ Vue.use(Quasar, {
 Vue.config.productionTip = false
 
 new Vue({
+  router,
   render: h => h(App),
 }).$mount('#app')

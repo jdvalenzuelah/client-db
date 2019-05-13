@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import router from '@/router'
 export default {
     name: 'LogIn',
     data(){
@@ -37,8 +38,7 @@ export default {
     },
     methods: {
         logIn(){
-            // eslint-disable-next-line
-            console.log('Log in')
+            router.push({name: 'ListUsers'})
         }
     }
 }
