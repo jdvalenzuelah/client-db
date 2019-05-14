@@ -8,7 +8,7 @@
                 </q-card-section>
 
                 <q-card-section>
-                    <q-form>
+                    <q-form @sumbit="handleSubmit">
                         <q-input
                             label="Nombre"
                             :rules="[val => val !== null && val !== '' || 'Por favor ingrese nombre de producto.']"
@@ -63,14 +63,21 @@
                                 </q-item>
                             </template>
                         </q-select>
-                        <div ref="attributes">
-                            <div class="text-subtitle2 q-pa-sm">Atributos</div>
-                            <atribute/>
+                        <div class="q-pa-md">
+                            <q-card flat bordered>
+                                <div ref="attributes" class="q-pa-sm">
+                                    <div class="text-subtitle2 q-pa-sm">Atributos</div>
+                                    <atribute v-model="atributo"/>
+                                </div>
+                                <div class="absolute-bottom-right q-pa-sm">
+                                    <q-btn round color="secondary" icon="add" @click="newAttribute"/>
+                                </div>
+                            </q-card>
                         </div>
-                        <q-btn label="plus" @click="newAttribute"/>
                     </q-form>
                 </q-card-section>
             </q-card>
+            <q-btn label="Guardar" type="submit"/>
         </q-dialog>
     </div>
 </template>
@@ -93,7 +100,9 @@ export default {
             categoria: null,
             subcategorias: [],
             subcategoria: null,
-            loading: false
+            loading: false,
+            atributo: null,
+            atributos: [],
         }
     },
     mounted(){
@@ -135,7 +144,12 @@ export default {
                 propsData: {type: 'primary'}
             })
             instance.$mount()
+            this.atributos.push(this.atributo)
             this.$refs.attributes.appendChild(instance.$el)
+        },
+
+        handleSubmit() {
+            const post = this.$http.post
         }
     }
 }

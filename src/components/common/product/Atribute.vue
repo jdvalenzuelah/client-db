@@ -45,6 +45,7 @@ export default {
             this.jsonModel.name = this.nombre
             this.jsonModel.options = this.modelAddUnique
             this.jsonModel.unique = this.unique
+            this.$emit('input', this.jsonModel)
         }
     }
 }
