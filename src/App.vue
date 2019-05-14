@@ -28,21 +28,14 @@
     </q-drawer>
 
     <q-page-container>
-      <log-in />
+      <router-view/>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import LogIn from './components/LogIn.vue'
-
 export default {
   name: 'LayoutDefault',
-
-  components: {
-    LogIn
-  },
-
   data () {
     return {
       leftDrawerOpen: this.$q.platform.is.desktop

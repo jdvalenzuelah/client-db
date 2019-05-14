@@ -27,7 +27,14 @@ import {
   QTh,
   QTr,
   QTd,
+  QDialog,
+  ClosePopup,
+  QSelect,
+  QCheckbox
 } from 'quasar'
+
+import router from './router'
+import Api from '@/Api'
 
 Vue.use(Quasar, {
   config: {},
@@ -54,15 +61,22 @@ Vue.use(Quasar, {
     QTh,
     QTr,
     QTd,
+    QDialog,
+    QSelect,
+    QCheckbox
   },
   directives: {
+    ClosePopup
   },
   plugins: {
   }
  })
 
 Vue.config.productionTip = false
+Vue.prototype.$http  = Api()
+Vue.prototype.$admin = false
 
 new Vue({
+  router,
   render: h => h(App),
 }).$mount('#app')

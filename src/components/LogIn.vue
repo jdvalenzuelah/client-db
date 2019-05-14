@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import router from '@/router'
 export default {
     name: 'LogIn',
     data(){
@@ -37,8 +38,12 @@ export default {
     },
     methods: {
         logIn(){
-            // eslint-disable-next-line
-            console.log('Log in')
+            if (this.username === 'admin' && this.password === 'admin') {
+                this.$admin = true
+                router.push({name: 'Products'})
+            } else {
+                router.push({name: 'Products'})
+            }
         }
     }
 }
