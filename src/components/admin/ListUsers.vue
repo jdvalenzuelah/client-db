@@ -23,8 +23,6 @@
 
 <script>
 /* eslint-disable */
-import Api from '@/Api'
-
 export default {
     name:'ListUsers',
     data(){
@@ -45,7 +43,7 @@ export default {
     methods: {
         fetchUsers() {
             this.loading = true
-            const get = Api().get
+            const get = this.$http.get
 
             get(
                 '/admin/cust'

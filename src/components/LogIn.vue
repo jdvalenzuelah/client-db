@@ -38,7 +38,12 @@ export default {
     },
     methods: {
         logIn(){
-            router.push({name: 'ListUsers'})
+            if (this.username === 'admin' && this.password === 'admin') {
+                this.$admin = true
+                router.push({name: 'Products'})
+            } else {
+                router.push({name: 'Products'})
+            }
         }
     }
 }
