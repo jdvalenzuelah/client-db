@@ -40,9 +40,9 @@ export default {
         logIn(){
             if (this.username === 'admin' && this.password === 'admin') {
                 this.$admin = true
-                router.push({name: 'Products'})
+                router.push({name: 'NewSale'})
             } else {
-                router.push({name: 'Products'})
+                router.push({name: 'NewSale'})
             }
         }
     }

@@ -105,6 +105,8 @@ export default {
             loading: false,
             atributo: null,
             atributos: [],
+            idProd: 0,
+            idAtributoProducto: 0
         }
     },
     mounted(){
@@ -151,8 +153,7 @@ export default {
         },
 
         handleSubmit() {
-            const post = this.$http
-
+            const post = this.$http.post
             post(
                 '/product/add',
                 {
@@ -162,10 +163,37 @@ export default {
                     idCat: this.subcategoria.idsubcategoria
                 }
             ).then(results => {
-                console.log(results)
+                this.idProd = results.data[0].idproducto
+                for(var i = 0; i < this.atributos.length; i++){
+                    post(
+                        '/product/add/atrib',
+                        {
+                            nombre: this.atributos[i].name
+                        }
+                    ).then(response => {
+                        this.idAtributoProducto = response.data[0].idatributoproducto
+                    }).catch(error => {
+                        console.log(error)
+                    })
+
+                    post(
+                        '/product/add/atrib/prod',
+                        {
+                            idProd: this.idProd,
+                            idAtrProd: this.idAtributoProducto,
+                            opt: this.atributos[i].options
+                        }
+                    ).then(results => {
+                        console.log(results)
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                }
             }).catch(error => {
                 console.log(error)
             })
+
+            this.atributos.push(this.atributo)
         }
     }
 }

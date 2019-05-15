@@ -30,7 +30,11 @@ import {
   QDialog,
   ClosePopup,
   QSelect,
-  QCheckbox
+  QCheckbox,
+  QStepper,
+  QStep,
+  QStepperNavigation,
+  QSeparator,
 } from 'quasar'
 
 import router from './router'
@@ -63,7 +67,11 @@ Vue.use(Quasar, {
     QTd,
     QDialog,
     QSelect,
-    QCheckbox
+    QCheckbox,
+    QStepper,
+    QStep,
+    QStepperNavigation,
+    QSeparator,
   },
   directives: {
     ClosePopup
