@@ -74,10 +74,12 @@
                                 </div>
                             </q-card>
                         </div>
+                        <div class="q-pa-sm flex flex-center">
+                            <q-btn label="Guardar" @click="handleSubmit"/>
+                        </div>
                     </q-form>
                 </q-card-section>
             </q-card>
-            <q-btn label="Guardar" type="submit"/>
         </q-dialog>
     </div>
 </template>
@@ -149,7 +151,21 @@ export default {
         },
 
         handleSubmit() {
-            const post = this.$http.post
+            const post = this.$http
+
+            post(
+                '/product/add',
+                {
+                    nombre: this.nombre,
+                    precio: this.precio,
+                    descripcion: this.descripcion,
+                    idCat: this.subcategoria.idsubcategoria
+                }
+            ).then(results => {
+                console.log(results)
+            }).catch(error => {
+                console.log(error)
+            })
         }
     }
 }
