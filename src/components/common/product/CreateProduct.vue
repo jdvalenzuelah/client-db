@@ -3,9 +3,7 @@
         <q-btn label="Agregar nuevo producto" @click="show = true"/>
         <q-dialog v-model="show">
             <q-card style="min-width: 800px">
-                <q-card-section>
-                    <div class="text-h6">Agregar producto</div>
-                </q-card-section>
+                        
 
                 <q-card-section>
                     <q-form @sumbit="handleSubmit">

@@ -60,21 +60,21 @@
                     <q-table
                         title="Productos"
                         :columns="columns"
-                        :data="data"
+                        :data="data.slice().reverse()"
                         :loading="loading"
                     >
                         <template v-slot:top="props">
                             <table>
                                 <tr>
                                     <td class="q-pa-sm" style="min-width: 300px;">
-                                        <q-input label="Ingresar ID de producto"/>
+                                        <q-input label="Ingresar ID de producto" v-model="prodId"/>
                                     </td>
                                     <td class="q-pa-sm">
-                                        <q-btn label="Agregar"/>
+                                        <q-btn label="Agregar"  @click="findProduct"/>
                                     </td>
                                     <td class="absolute-right" align="right">
                                         <q-stepper-navigation class="q-pa-sm">
-                                            <q-btn @click="step += 1" label="Proceder a total" v-if="data.length>1"/>
+                                            <q-btn @click="total" label="Proceder a total" v-if="data.length>0"/>
                                         </q-stepper-navigation>
                                     </td>
                                 </tr>
@@ -82,10 +82,15 @@
                         </template>
                         <template v-slot:body="props">
                             <q-tr>
-                                <q-td key="id">{{props.row.idproducto}}</q-td>
-                                <q-td key="nombre">{{props.row.nombre}}</q-td>
-                                <q-td key="descripcion">{{props.row.descripcion}}</q-td>
-                                <q-td key="precio">Q{{props.row.precio}}</q-td>
+                                <q-td key="id">{{props.row.id_producto}}</q-td>
+                                <q-td key="nombre">{{props.row.nombre_producto}}</q-td>
+                                <q-td key="descripcion">{{props.row.descripcion_producto}}</q-td>
+                                <q-td key="precio">Q{{props.row.precio_producto}}</q-td>
+                                <q-td key="subcat">{{props.row.subcategoria}}</q-td>
+                                <q-td key="cat">{{props.row.categoria}}</q-td>
+                                <q-td v-for="opt in atribs" v-bind:key="opt.name">
+                                    <q-select v-model="selected" v-bind:label="opt.nombre" :options="opt.opciones.split(',')"/>
+                                </q-td>
                             </q-tr>
                         </template>
                     </q-table>
@@ -101,9 +106,10 @@
                 <q-card>
                     <q-card-section>
                         <div class="text-h6">Total:</div>
+                        <div class="text-h5">Q{{totalVenta}}</div>
                     </q-card-section>
                     <q-card-section>
-                        <q-btn label="Confirmar y guardar"/>
+                        <q-btn label="Confirmar y guardar" @click="saveInvoice"/>
                     </q-card-section>
                 </q-card>
             </div>
@@ -130,9 +136,15 @@ export default {
                 {name:'nombre', label:'Nombre', align:'left', sortable:true, required:true},
                 {name:'descripcion', label:'Descripcion', align:'left', sortable:true, required:true},
                 {name:'precio', label:'Precio', align:'left', sortable:true, required:true},
+                {name:'subcat', label:'Sub-categoria', align:'left', sortable:true, required:true},
+                {name:'cat', label:'Categoria', align:'left', sortable:true, required:true},
             ],
             data: [],
-            loading: false
+            prodId: '',
+            loading: false,
+            atribs: [],
+            totalVenta: 0,
+            selected: ''
         }
     },
 
@@ -150,9 +162,68 @@ export default {
             }).catch(error => {
                 console.log(error)
             })
+        },
 
-            console.log(this.cliente)
+        findProduct() {
+            const post = this.$http.post
+            post(
+                '/product/id',
+                {
+                    idproducto: this.prodId,
+                }
+            ).then(results => {
+                this.data.push(results.data[0])
+                this.findAtrs(results.data[0].id_producto)
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+
+        findAtrs(id){
+            const post = this.$http.post
+
+            post(
+                '/product/atrib/all',
+                {
+                    id: id
+                }
+            ).then(results => {
+                this.atribs = results.data
+            }).catch/(error => {
+                console.log(error)
+            })
+        },
+        total(){
+            this.step += 1
+            var total = 0
+            for (var i = 0; i < this.data.length; i++){
+                total += this.data[i].precio_producto
+            }
+            this.totalVenta = total
+        },
+        saveInvoice() {
+            const post = this.$http.post
+
+            var today = new Date()
+            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+            var dateTime = date+' '+time
+
+            post(
+                '/invoice/add',
+                {
+                    fecha: dateTime,
+                    dateTime: this.cliente.nit,
+                    idvendedor: 1
+                }
+            ).then(() => {
+                console.log('Exito')
+            }).catch(error => {
+                console.log(error)
+            })
         }
+
+        
     }
 }
 </script>
