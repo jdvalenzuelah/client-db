@@ -14,7 +14,7 @@
                     <q-td key="numFact">{{props.row.numfactura}}</q-td>
                     <q-td key="date">{{props.row.fecha}}</q-td>
                     <q-td key="nit">{{props.row.nit}}</q-td>  
-                    <q-td key="idVen">{{props.row.idvendedor}}</q-td>  
+                    <q-td key="idVen">{{props.row.idvendedor}}</q-td>
                 </q-tr>
             </template>
         </q-table>
