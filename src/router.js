@@ -5,6 +5,8 @@ import ListUsers from '@/components/admin/ListUsers.vue'
 import Product from '@/components/common/product/Products.vue'
 import NewSale from '@/components/common/invoice/NewSale.vue'
 import Simulate from '@/components/common/invoice/Simulate.vue'
+import ListSales from '@/components/common/invoice/List.vue'
+
 
 import App from './App.vue'
 
@@ -44,6 +46,11 @@ export default new Router({
     path: '/simulate',
     name: 'Simulate',
     component: Simulate
+  },
+  {
+    path: '/sales',
+    name: 'ListSales',
+    component: ListSales
   }
   ]
 })

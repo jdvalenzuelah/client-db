@@ -30,14 +30,17 @@
         <q-item clickable @click="list">
           <q-item-label>Listar usuarios</q-item-label>
         </q-item>
-        <q-item clickable @click="sales">
-          <q-item-label>Ventas</q-item-label>
-        </q-item>
         <q-item clickable @click="products">
           <q-item-label>Productos</q-item-label>
         </q-item>
+        <q-item clickable @click="sales">
+          <q-item-label>Nueva venta</q-item-label>
+        </q-item>
         <q-item clickable @click="simulate">
           <q-item-label>Simulación ventas</q-item-label>
+        </q-item>
+        <q-item clickable @click="ListSales">
+          <q-item-label>Ver ventas</q-item-label>
         </q-item>
       </q-list>
 
@@ -70,6 +73,9 @@ export default {
     },
     simulate() {
       router.push({name: 'Simulate'})
+    },
+    ListSales(){
+      router.push({name: 'ListSales'})
     }
   }
 }
