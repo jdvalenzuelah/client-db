@@ -220,7 +220,8 @@ export default {
                     for (var x = 0; x < Math.floor(Math.random() * 10); x++){
                         purchasedProducts.push(this.productList[Math.floor(Math.random() * this.productList.length)])
                     }
-                    var numFact = results.data[0].numFactura
+                    var numFact = results.data[0].numfactura
+                    console.log(numFact)
                     for(var i = 0; i < purchasedProducts.length; i++){
                         console.log('added')
                         post(
