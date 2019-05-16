@@ -83,6 +83,10 @@ Vue.use(Quasar, {
 Vue.config.productionTip = false
 Vue.prototype.$http  = Api()
 Vue.prototype.$admin = false
+Vue.prototype.$logged = {
+  userId: 1,
+  logged: false
+}
 
 new Vue({
   router,

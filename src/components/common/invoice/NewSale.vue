@@ -216,13 +216,38 @@ export default {
                     dateTime: this.cliente.nit,
                     idvendedor: 1
                 }
-            ).then(() => {
-                console.log('Exito')
+            ).then(results => {
+                var numFactu = results.data[0].numfactura
+                for(var i = 0; i < this.data.length; i++){
+                    post(
+                        '/invoice/add/details',
+                        {
+                            precioProd: this.data[i].precio_producto,
+                            numFact: numFactu,
+                            idProd: this.data[i].id_producto
+                        }
+                    ).catch(error => {
+                        console.log(error)
+                    })
+                }
             }).catch(error => {
                 console.log(error)
             })
+            this.step = 1
+            this.nit = ''
+            this.cliente = {
+                nit: 0,
+                nombre: null,
+                telefono: 0,
+                direccion: null
+            }
+            this.data = []
+            this.prodId = ''
+            this.loading = false
+            this.atribs = []
+            this.totalVenta = 0
+            this.selected = ''
         }
-
         
     }
 }

@@ -4,6 +4,9 @@ import LogIn from '@/components/LogIn.vue'
 import ListUsers from '@/components/admin/ListUsers.vue'
 import Product from '@/components/common/product/Products.vue'
 import NewSale from '@/components/common/invoice/NewSale.vue'
+import Simulate from '@/components/common/invoice/Simulate.vue'
+
+import App from './App.vue'
 
 
 Vue.use(Router)
@@ -31,6 +34,16 @@ export default new Router({
     path: '/sale/new',
     name: 'NewSale',
     component: NewSale
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: App
+  },
+  {
+    path: '/simulate',
+    name: 'Simulate',
+    component: Simulate
   }
   ]
 })

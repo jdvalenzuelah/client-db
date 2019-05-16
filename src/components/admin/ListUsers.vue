@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import router from '@/router'
 /* eslint-disable */
 export default {
     name:'ListUsers',

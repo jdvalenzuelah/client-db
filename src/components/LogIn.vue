@@ -44,6 +44,7 @@ export default {
             } else {
                 router.push({name: 'NewSale'})
             }
+            this.$logged.logged = true
         }
     }
 }

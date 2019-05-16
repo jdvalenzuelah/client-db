@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="glossy">
+    <q-header elevated class="glossy" v-if="this.$logged.logged">
       <q-toolbar>
         <q-btn
           flat
@@ -23,7 +23,23 @@
       v-model="leftDrawerOpen"
       bordered
       content-class="bg-grey-2"
+      v-if="this.$logged.logged"
     >
+      <q-list>
+        <q-item-label header> Opciones </q-item-label>
+        <q-item clickable @click="list">
+          <q-item-label>Listar usuarios</q-item-label>
+        </q-item>
+        <q-item clickable @click="sales">
+          <q-item-label>Ventas</q-item-label>
+        </q-item>
+        <q-item clickable @click="products">
+          <q-item-label>Productos</q-item-label>
+        </q-item>
+        <q-item clickable @click="simulate">
+          <q-item-label>Simulación ventas</q-item-label>
+        </q-item>
+      </q-list>
 
     </q-drawer>
 
@@ -34,11 +50,26 @@
 </template>
 
 <script>
+import router from '@/router'
 export default {
   name: 'LayoutDefault',
   data () {
     return {
       leftDrawerOpen: this.$q.platform.is.desktop
+    }
+  },
+  methods: {
+    list() {
+      router.push({name: 'ListUsers'})
+    },
+    sales(){
+      router.push({name: 'NewSale'})
+    },
+    products(){
+      router.push({name: 'Products'})
+    },
+    simulate() {
+      router.push({name: 'Simulate'})
     }
   }
 }
