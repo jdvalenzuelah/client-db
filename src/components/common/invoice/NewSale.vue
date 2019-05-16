@@ -213,7 +213,7 @@ export default {
                 '/invoice/add',
                 {
                     fecha: dateTime,
-                    dateTime: this.cliente.nit,
+                    nit: this.cliente.nit,
                     idvendedor: 1
                 }
             ).then(results => {
