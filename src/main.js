@@ -35,6 +35,7 @@ import {
   QStep,
   QStepperNavigation,
   QSeparator,
+  QDate,
 } from 'quasar'
 
 import router from './router'
@@ -72,6 +73,7 @@ Vue.use(Quasar, {
     QStep,
     QStepperNavigation,
     QSeparator,
+    QDate,
   },
   directives: {
     ClosePopup

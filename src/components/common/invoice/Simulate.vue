@@ -1,5 +1,8 @@
 <template>
+<div>
     <q-btn @click="userGenerator"/>
+    <q-date/>
+</div>
 </template>
 <script>
 const nameList = [
