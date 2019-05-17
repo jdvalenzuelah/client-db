@@ -128,13 +128,14 @@ export default {
         }
     },
     mounted() {
+        this.$q.loading.show()
         const get = this.$http.get
         get(
                 '/admin/cust'
             ).then(results => {
                 this.userList = results.data
             }).catch(error => {
-                console.log(error)
+                this.$q.notify('Error')
             })
 
         get(
@@ -142,8 +143,9 @@ export default {
         ).then(results => {
                 this.productList = results.data
         }).catch(error => {
-            console.log(error)
+            this.$q.notify('Error')
         })
+        this.$q.loading.hide()
     },
     methods: {
         userGenerator() {
@@ -167,15 +169,15 @@ export default {
                          telefono:telefono,
                          direccion: direccion
                      }
-                 ).then(() => {
-                     console.log('Added')
-                 }).catch(error => {
-                     console.log('Error')
+                 ).catch(error => {
+                     this.$q.notify('Error')
                  })
              }
+            this.$q.notify('Finzalizado')
         },
 
         productGenerator() {
+            this.$q.loading.show()
             const post = this.$http.post
             var productNumber = Math.floor(Math.random() * (30) ) + 10
             for (var i = 0; i < productNumber; i++){
@@ -188,17 +190,21 @@ export default {
                         nombre: nombre,
                         precio: precio,
                         descripcion: 'Telefono',
-                        idCat: 2
+                        idCat: 1
                     }
-                ).then(() => {
-                    console.log('Added')
+                ).then(results => {
+                    console.log(results)
                 }).catch(error => {
-                    console.log(error)
+                    console.log
+                    this.$q.notify('Error')
                 })
             }
+            this.$q.loading.hide()
+            this.$q.notify('Finalizado')
         },
 
         invoiceGenerator(){
+            this.$q.loading.show()
             const post = this.$http.post
             const date = this.simulationDate
             const limit = this.limit
@@ -221,9 +227,7 @@ export default {
                         purchasedProducts.push(this.productList[Math.floor(Math.random() * this.productList.length)])
                     }
                     var numFact = results.data[0].numfactura
-                    console.log(numFact)
                     for(var i = 0; i < purchasedProducts.length; i++){
-                        console.log('added')
                         post(
                             '/invoice/add/details',
                             {
@@ -233,10 +237,16 @@ export default {
                             }
                         ).catch(error => {
                             console.log(error)
+                            this.$q.notify('Error')
                         })
                     }
-                }).catch(error => {console.log(error)})
+                }).catch(error => {
+                    this.$q.notify('Error')
+                    console.log(error)
+                })
             }
+            this.$q.loading.hide()
+            this.$q.notify('Finalizado')
         }
     }
 }

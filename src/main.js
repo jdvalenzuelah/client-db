@@ -36,6 +36,8 @@ import {
   QStepperNavigation,
   QSeparator,
   QDate,
+  Loading,
+  Notify,
 } from 'quasar'
 
 import router from './router'
@@ -79,6 +81,8 @@ Vue.use(Quasar, {
     ClosePopup
   },
   plugins: {
+    Loading,
+    Notify
   }
  })
 
