@@ -219,7 +219,8 @@ export default {
                     {
                         fecha: dateTime,
                         nit: nit,
-                        idvendedor: 1
+                        idvendedor: 1,
+                        idtienda: (Math.floor(Math.random() * 100) + 5)
                     }
                 ).then(results => {
                     var purchasedProducts = []
